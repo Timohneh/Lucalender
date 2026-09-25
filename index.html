@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#173b6c" />
+    <meta
+      name="description"
+      content="Der offizielle, vollkommen unseriöse Kalender zur fairen Verteilung von Luca."
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23173b6c'/%3E%3Cpath d='M18 13v8M46 13v8M13 25h38v25H13z' fill='none' stroke='%23fff8e8' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='m24 37 6 6 12-14' fill='none' stroke='%23f05a3f' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    />
+    <title>Lucalender — amtlich verplant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,700;9..144,800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="config.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Lucalender Startseite">
+          <span class="brand-mark" aria-hidden="true">L</span>
+          <span>
+            <strong>Lucalender</strong>
+            <small>Amtliche Luca-Vergabestelle</small>
+          </span>
+        </a>
+        <div class="top-actions">
+          <span class="availability" id="connectionStatus"><i></i> Verbinde Vergabestelle …</span>
+          <button class="button button-light" id="shareButton" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16V3m0 0L7 8m5-5 5 5M5 13v7h14v-7" /></svg>
+            Plan teilen
+          </button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="luca-panel">
+          <div class="classification">Objekt der Begierde · Akte #LU-CA</div>
+          <div class="portrait-wrap">
+            <div class="portrait-halo" aria-hidden="true"></div>
+            <img src="assets/luca-cartoon.png" alt="Luca als freundliche Cartoonfigur mit Kalender" />
+            <span class="stamp" aria-hidden="true">BUCHBAR</span>
+          </div>
+          <div class="luca-copy">
+            <p class="eyebrow">Ressource des Monats</p>
+            <h1>Ein Luca.<br />Zwei Parteien.</h1>
+            <p>Wer zuerst bucht, hat offiziell recht. Wer Kuchen mitbringt, hat moralisch recht.</p>
+          </div>
+
+          <section class="quota-card" aria-labelledby="quotaTitle">
+            <div class="section-heading">
+              <h2 id="quotaTitle">Monatskontingent</h2>
+              <span id="quotaMonth">—</span>
+            </div>
+            <div id="quotaList" class="quota-list"></div>
+            <p class="quota-footnote">Nicht genutzte Luca-Einheiten verfallen dramatisch zum Monatsende.</p>
+          </section>
+        </aside>
+
+        <section class="calendar-panel" aria-labelledby="monthTitle">
+          <div class="calendar-toolbar">
+            <div>
+              <p class="eyebrow">Vergabeübersicht</p>
+              <h2 id="monthTitle" aria-live="polite">—</h2>
+            </div>
+            <div class="month-controls" aria-label="Monat wechseln">
+              <button class="icon-button" id="prevMonth" type="button" aria-label="Vorheriger Monat">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></svg>
+              </button>
+              <button class="today-button" id="todayButton" type="button">Heute</button>
+              <button class="icon-button" id="nextMonth" type="button" aria-label="Nächster Monat">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="legend" aria-label="Legende">
+            <span><i class="legend-dot anka"></i>Anka</span>
+            <span><i class="legend-dot gabel"></i>Gabel</span>
+            <span><i class="legend-dot free"></i>Freiwild</span>
+          </div>
+
+          <div class="calendar" role="grid" aria-labelledby="monthTitle">
+            <div class="weekday" role="columnheader">Mo</div>
+            <div class="weekday" role="columnheader">Di</div>
+            <div class="weekday" role="columnheader">Mi</div>
+            <div class="weekday" role="columnheader">Do</div>
+            <div class="weekday" role="columnheader">Fr</div>
+            <div class="weekday weekend" role="columnheader">Sa</div>
+            <div class="weekday weekend" role="columnheader">So</div>
+            <div id="calendarGrid" class="calendar-grid" role="rowgroup"></div>
+          </div>
+
+          <div class="calendar-note">
+            <span aria-hidden="true">↳</span>
+            Freien Tag anklicken und Luca sichern. Belegte Tage lassen sich öffnen oder freigeben.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="bookingDialog" class="booking-dialog">
+      <form id="bookingForm" method="dialog">
+        <button class="dialog-close" id="dialogClose" type="button" aria-label="Dialog schließen">×</button>
+        <p class="eyebrow">Formular LU-1</p>
+        <h2 id="dialogTitle">Luca beantragen</h2>
+        <p id="dialogDate" class="dialog-date">—</p>
+
+        <fieldset id="personFieldset">
+          <legend>Wer erhebt Anspruch?</legend>
+          <div class="person-options">
+            <label class="person-option anka-option">
+              <input type="radio" name="person" value="anka" checked />
+              <span class="radio-art">A</span>
+              <span><strong>Anka</strong><small>Priorität: Liebe</small></span>
+            </label>
+            <label class="person-option gabel-option">
+              <input type="radio" name="person" value="gabel" />
+              <span class="radio-art">G</span>
+              <span><strong>Gabel</strong><small>Priorität: Broschaft</small></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <label class="text-field">
+          <span>Verwendungszweck <small>(optional)</small></span>
+          <input id="bookingNote" name="note" maxlength="38" placeholder="z. B. Bier, Brunch, Baumarkt …" />
+        </label>
+
+        <p id="dialogMessage" class="dialog-message" role="status"></p>
+        <div class="dialog-actions">
+          <button class="button button-danger is-hidden" id="deleteBooking" type="button">Buchung lösen</button>
+          <button class="button button-primary" id="saveBooking" type="submit">Verbindlich buchen</button>
+        </div>
+        <p class="fine-print">Mit Klick wird versichert, dass Luca zumindest theoretisch gefragt wurde.</p>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
