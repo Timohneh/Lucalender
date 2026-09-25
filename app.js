@@ -35,7 +35,6 @@ const elements = {
 function apiHeaders(extra = {}) {
   return {
     apikey: config.supabaseAnonKey,
-    Authorization: `Bearer ${config.supabaseAnonKey}`,
     "Content-Type": "application/json",
     ...extra,
   };
