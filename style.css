@@ -159,7 +159,10 @@ button:focus-visible, input:focus-visible {
 .eyebrow { margin: 0 0 7px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
 .luca-copy .eyebrow { color: #9bb6ff; }
 .luca-copy h1 { margin: 0; font: 800 clamp(2.4rem, 4vw, 4.2rem)/0.93 "Fraunces", serif; letter-spacing: -0.04em; }
-.luca-copy > p:last-child { max-width: 36rem; margin: 18px 0 26px; color: rgba(255,255,255,0.72); line-height: 1.55; }
+.rules { max-width: 36rem; margin: 18px 0 26px; color: rgba(255,255,255,0.78); }
+.rules strong { color: var(--white); font-size: 0.8rem; letter-spacing: 0.09em; text-transform: uppercase; }
+.rules ul { margin: 8px 0 0; padding-left: 19px; line-height: 1.5; }
+.rules li + li { margin-top: 3px; }
 
 .quota-card { position: relative; z-index: 4; padding: 18px; color: var(--ink); background: var(--paper); border-radius: 4px 15px 5px 11px; box-shadow: 7px 9px 0 rgba(6, 25, 51, 0.35); transform: rotate(-0.6deg); }
 .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 1px dashed var(--line); padding-bottom: 10px; }
@@ -279,7 +282,8 @@ button:focus-visible, input:focus-visible {
   .stamp { right: -2px; bottom: 14px; font-size: 0.62rem; border-width: 2px; padding: 5px; }
   .luca-copy { align-self: center; }
   .luca-copy h1 { font-size: 2rem; }
-  .luca-copy > p:last-child { margin: 11px 0 0; font-size: 0.78rem; line-height: 1.4; }
+  .rules { margin: 11px 0 0; font-size: 0.75rem; }
+  .rules ul { margin-top: 5px; padding-left: 16px; line-height: 1.35; }
   .luca-copy .eyebrow { font-size: 0.62rem; }
   .quota-card { grid-column: 1 / -1; margin-top: 14px; transform: none; }
   .calendar-panel { padding: 25px 12px 36px; }
